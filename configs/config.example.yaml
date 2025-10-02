@@ -1,0 +1,13 @@
+kiln:
+  baseURL: https://api.kiln.fi
+  token: ""      # vide => DEMO mode
+monitoring:
+  interval: 60s
+  account_ids: ["acc_demo"]
+alerts:
+  kind: stdout   # stdout | discord
+  discord_webhook: ""
+rules:
+  min_uptime: 0.995
+  max_inactive_periods: 2
+  reward_drop_threshold_pct: 40
