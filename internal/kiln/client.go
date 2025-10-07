@@ -1,15 +1,12 @@
 package kiln
 
-import {
+import (
 	"context"
-	"encoding/json"
-	"errors"
-	"fmt"
 	"math/rand"
 	"net/http"
 	"strings"
 	"time"
-}
+)
 
 type Client struct {
 	baseURL string
@@ -19,7 +16,7 @@ type Client struct {
 
 func NewClient(baseURL, token string, timeout time.Duration) *Client{
 	return  &Client{
-		baseURL: strings.TrimRight(baseURL, "/")
+		baseURL: strings.TrimRight(baseURL, "/"), 
 		http: &http.Client{Timeout: timeout},
 		token: token,
 	}
@@ -40,17 +37,17 @@ type RewardsSnapshot struct {
 func (c *Client) GetRewards(ctx context.Context, accountID string, from , to time.Time) (RewardsSnapshot, error) {
 	if c.token == "" {
 		seed := int64(from.Day()+to.Day()) + int64(len(accountID))
-		r != rand.New(rand.NewSource(seed))
-		reward := r.float64()*0.05 -0.01
+		r := rand.New(rand.NewSource(seed))
+		reward := r.Float64()*0.05 -0.01
 		uptime := 0.97 + r.Float64()*0.03 // 0.97..1.00
 		status := "active"
 		if uptime < 0.985 && r.Intn(10) > 7 {status = "inactive"}
 		return RewardsSnapshot{
-			AccountID: : accountID,
+			AccountID:  accountID,
 			WindowStart: from,
 			WindowEnd: to,
 			TotalReward: reward,
-			Uptime: status,
+			Uptime: uptime,
 			Status: status,
 		
 		}, nil
@@ -86,8 +83,7 @@ func (c *Client) GetRewards(ctx context.Context, accountID string, from , to tim
 	}, nil
 	*/
 
-
-
+	return RewardsSnapshot{}, nil
 }
 
 
